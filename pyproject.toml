@@ -1,0 +1,115 @@
+[build-system]
+requires = ["setuptools>=63", "setuptools_scm[toml]>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wagtail-portablepages"
+dynamic = ["version"]
+description = "Move pages between Wagtail instances"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "CC0"}
+authors = [
+    {name = "CFPB", email = "tech@cfpb.gov" }
+]
+dependencies = [
+    "wagtail>=6.1",
+]
+classifiers = [
+    "Framework :: Django",
+    "Framework :: Wagtail",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+
+[project.optional-dependencies]
+testing = [
+    "coverage[toml]",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/cfpb/wagtail-portablepages"
+"Bug Reports" = "https://github.com/cfpb/wagtail-portablepages/issues"
+"Source" = "https://github.com/cfpb/wagtail-portablepages"
+
+[tool.setuptools.package-data]
+portablepages = [
+    "templates/portablepages/*",
+    "templates/portablepages/includes/*",
+    "static/portablepages/css/*",
+]
+
+[tool.ruff]
+# Use PEP8 line-length
+line-length = 79
+# Exclude common paths
+exclude = [
+    ".git",
+    ".tox",
+    "__pycache__",
+    "**/migrations/*.py",
+]
+
+[tool.ruff.lint]
+ignore = []
+# Select specific rulesets to use
+select = [
+    # pycodestyle
+    "E",
+    # pyflakes
+    "F",
+    # flake8-bugbear
+    "B",
+    # pyupgrade
+    "UP",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+
+[tool.ruff.lint.isort.sections]
+"django" = ["django"]
+"wagtail" = ["wagtail"]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+section-order = [
+    "future",
+    "standard-library",
+    "django",
+    "wagtail",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+
+[tool.coverage.run]
+omit = [
+    "portablepages/tests/*",
+]
+
+[tool.bandit]
+exclude_dirs = [
+    "*/tests/*",
+]
+
+[tool.mypy]
+allow_redefinition = false
+check_untyped_defs = true
+disallow_untyped_decorators = true
+disallow_any_explicit = true
+disallow_any_generics = true
+disallow_untyped_calls = true
+ignore_errors = false
+ignore_missing_imports = true
+implicit_reexport = false
+local_partial_types = true
+strict_optional = true
+strict_equality = true
+no_implicit_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unreachable = true
+warn_no_return = true
