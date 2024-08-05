@@ -37,6 +37,7 @@ def export_page(page: Page) -> str:
         "app_label": page.content_type.app_label,
         "model": page.content_type.model,
         "last_migration": get_last_migration(page.content_type.app_label),
+        "exported_at": timezone.now().isoformat(),
     }
 
     # The serializable_data comes from django-modelcluster.
@@ -54,16 +55,6 @@ def export_page(page: Page) -> str:
     # Strip the pk out of the data so that, on import, from_serializable_data()
     # always creates a new object.
     page_export["data"]["pk"] = None
-
-    # Metadata is included to help identify the export, including whether
-    # the page was live, its last published date, and its exported date
-    page_export["metadata"] = {
-        "live": page.live,
-        "last_published_at": page.last_published_at.isoformat()
-        if page.last_published_at is not None
-        else "",
-        "exported_at": timezone.now().isoformat(),
-    }
 
     # Dump the page data to JSON
     page_json = json.dumps(
