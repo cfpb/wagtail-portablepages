@@ -49,6 +49,7 @@ __pycache__/
 *.py[cod]
 .env
 .python-version
+build/
 
 # pyenv #
 #########
@@ -75,3 +76,5 @@ bower_components/
 .grunt/
 src/vendor/
 dist/
+
+portablepages.db
